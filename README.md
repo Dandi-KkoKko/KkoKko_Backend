@@ -83,6 +83,7 @@ src/main/java/com/kkokko/closer
 | 문서 | 내용 |
 |---|---|
 | [docs/CONVENTIONS.md](docs/CONVENTIONS.md) | 브랜치·커밋·PR·코드 규칙, 파일 담당 |
+| [docs/ERD.md](docs/ERD.md) | 테이블 8개, 제약·인덱스, 설계 이유, 공용 조회 규칙 |
 | [docs/adr/](docs/adr/) | 기술 결정 기록 |
 
 ## 팀 (Backend)
