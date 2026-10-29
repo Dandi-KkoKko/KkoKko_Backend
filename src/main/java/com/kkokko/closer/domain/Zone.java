@@ -30,7 +30,8 @@ public class Zone {
 	private double lng;
 
 	// 업로드 좌표가 이 반경 안이면 이 구역에 배정한다.
-	@Column(nullable = false)
+	// 기본 네이밍 규칙은 끝의 대문자 한 글자 앞에 밑줄을 넣지 않아 radiusm이 되므로 이름을 직접 정한다.
+	@Column(name = "radius_m", nullable = false)
 	private int radiusM;
 
 	// 랜드마크 구역은 사진이 몰리므로 대표 사진을 최대 2장까지 보여준다.
