@@ -18,6 +18,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(indexes = {
@@ -64,7 +66,9 @@ public class Post {
 	@Column(nullable = false)
 	private LocalDateTime publishAt;
 
+	// MySQL 네이티브 enum으로 만들면 값을 추가할 때 ddl-auto=update가 컬럼을 고치지 않아서 varchar로 둔다.
 	@Enumerated(EnumType.STRING)
+	@JdbcTypeCode(SqlTypes.VARCHAR)
 	@Column(nullable = false, length = 20)
 	private PostStatus status;
 
