@@ -1,7 +1,7 @@
 package com.kkokko.closer.global.exception;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -13,9 +13,9 @@ public class GlobalExceptionHandler {
 		return toResponse(e.getErrorCode());
 	}
 
-	// @Valid 실패
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ErrorDto> handleValidException(MethodArgumentNotValidException e) {
+	// @Valid 실패 (JSON, multipart 모두)
+	@ExceptionHandler(BindException.class)
+	public ResponseEntity<ErrorDto> handleValidException(BindException e) {
 		return toResponse(ErrorCode.INVALID_INPUT);
 	}
 
