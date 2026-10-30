@@ -84,9 +84,10 @@ src/main/java/com/kkokko/closer
 | 문서 | 내용 |
 |---|---|
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 구성도, 서버 판정 규칙(거리 단계·위치 보호·지연 공개·익명) |
-| [docs/CONVENTIONS.md](docs/CONVENTIONS.md) | 브랜치·커밋·PR·코드 규칙, 파일 담당 |
+| [docs/CONVENTIONS.md](docs/CONVENTIONS.md) | 브랜치·커밋·PR·문서·코드 규칙, 파일 담당 |
 | [docs/ERD.md](docs/ERD.md) | 테이블 8개, 제약·인덱스, 설계 이유, 공용 조회 규칙 |
-| [docs/adr/](docs/adr/) | 기술 결정 기록 (0001 Spring Boot 버전, 0002 S3, 0003 배포) |
+| [docs/adr/](docs/adr/) | 기술 결정 기록 (0001 Spring Boot 버전, 0002 S3, 0003 배포), 작성법·템플릿 |
+| [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 개발·테스트·배포 중 생긴 문제와 해결, 지켜볼 위험 요소 |
 
 ## 팀 (Backend)
 
