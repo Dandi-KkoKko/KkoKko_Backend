@@ -19,7 +19,7 @@
 | 이미지 저장 | S3 비공개 버킷 + presigned URL | 예정 |
 | AI 연동 | AI 서버(FastAPI)를 REST로 호출 | 예정 |
 | 위치 판정 | 하버사인 거리, 20m 격자 스냅, 거리별 공개 단계(`app.blur.*`) | 적용 |
-| 배포 | AWS EC2(서울, 탄력적 IP) + Docker Compose + GitHub Actions + GHCR, Nginx + HTTPS | 예정 |
+| 배포 | AWS EC2(시드니, 탄력적 IP) + Docker Compose + GitHub Actions + GHCR + SSM, Nginx + HTTPS | 구축 중 ([DEPLOY](docs/DEPLOY.md)) |
 
 기술을 고른 이유는 [ADR](docs/adr/)에 있습니다: [Spring Boot 버전](docs/adr/0001-spring-boot-3.5.md), [사진 저장(S3)](docs/adr/0002-s3-image-storage.md), [배포](docs/adr/0003-deploy-ec2-docker-ghcr.md).
 
@@ -87,6 +87,7 @@ src/main/java/com/kkokko/onna
 |---|---|
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 구성도, 서버 판정 규칙(거리 단계·위치 보호·지연 공개·익명) |
 | [docs/CONVENTIONS.md](docs/CONVENTIONS.md) | 브랜치·커밋·PR·문서·코드 규칙, 파일 담당 |
+| [docs/DEPLOY.md](docs/DEPLOY.md) | 개발 서버 구성, 처음 준비, 자동 배포, 되돌리기, 장애 대응 |
 | [docs/ERD.md](docs/ERD.md) | 테이블 8개, 제약·인덱스, 설계 이유, 공용 조회 규칙 |
 | [docs/adr/](docs/adr/) | 기술 결정 기록 (0001 Spring Boot 버전, 0002 S3, 0003 배포), 작성법·템플릿 |
 | [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 개발·테스트·배포 중 생긴 문제와 해결, 지켜볼 위험 요소 |

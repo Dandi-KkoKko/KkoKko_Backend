@@ -8,7 +8,7 @@
 |---|---|---|
 | [0001](0001-spring-boot-3.5.md) | Spring Boot 3.5.16 + Java 17 + Gradle 8.14 | 채택 |
 | [0002](0002-s3-image-storage.md) | 사진은 S3 비공개 버킷 + presigned URL로 내려준다 | 채택 (구현 전) |
-| [0003](0003-deploy-ec2-docker-ghcr.md) | EC2 + Docker Compose + GitHub Actions(GHCR)로 자동 배포한다 | 채택 (구현 중) |
+| [0003](0003-deploy-ec2-docker-ghcr.md) | EC2 + Docker Compose + GitHub Actions(GHCR) + SSM으로 자동 배포한다 | 채택 (구현 중) |
 
 ## 언제 쓰나
 

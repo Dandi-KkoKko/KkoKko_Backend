@@ -58,7 +58,7 @@ main                 배포·제출 기준. 직접 push 금지
 | 작업 PR과 함께 | 엔티티·테이블·인덱스 변경 | [ERD.md](ERD.md) |
 | | API 추가·변경 | Swagger 설명·예시, PR "바뀐 API" 표, 팀 단톡 공지 |
 | | 구성 요소·핵심 규칙 변경 | [ARCHITECTURE.md](ARCHITECTURE.md) |
-| | 서버·배포 절차 변경 | `DEPLOY.md` (배포 작업 때 추가) |
+| | 서버·배포 절차 변경 | [DEPLOY.md](DEPLOY.md) |
 | | 환경변수·설정값 추가 | `.env.example`(키 이름만), README |
 | 문제가 생겼을 때 | 해결 전이라도 바로 기록. 터질 것 같은 부분은 "지켜볼 것"에 먼저 | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
 | 마일스톤 PR | README 기술 스택 상태, 아래 "서로 넘겨줄 것" 상태 갱신 | README, 이 문서 |

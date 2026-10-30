@@ -9,7 +9,7 @@ flowchart LR
     App[모바일 앱] -- "HTTP(S) /api/v1" --> API
     App -- "presigned URL로<br/>이미지 직접 받기" --> S3
 
-    subgraph EC2["AWS EC2 (서울, 탄력적 IP)"]
+    subgraph EC2["AWS EC2 (시드니, 탄력적 IP)"]
         API[Spring Boot<br/>app 컨테이너] --> DB[(MySQL 8.4<br/>mysql 컨테이너)]
     end
 
@@ -17,7 +17,7 @@ flowchart LR
     API -- REST --> AI[AI 서버<br/>FastAPI]
 
     GH[GitHub Actions] -- "main 병합 시<br/>이미지 push" --> GHCR[(GHCR)]
-    GH -- SSH 배포 --> EC2
+    GH -- "SSM 명령<br/>(HTTPS)" --> EC2
     GHCR -. pull .-> EC2
 ```
 
