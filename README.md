@@ -14,7 +14,7 @@
 |---|---|---|
 | 언어·프레임워크 | Java 17, Spring Boot 3.5.16, Gradle 8.14.6 (Groovy) | 적용 |
 | DB | MySQL 8.4, Spring Data JPA | 적용 |
-| 인증 | Spring Security + JWT (Access + Refresh), BCrypt | 예정 |
+| 인증 | Spring Security + JWT (Access 1시간 + Refresh 14일), BCrypt | 필터 적용, 가입·로그인 API 예정 |
 | API 문서 | springdoc-openapi 2.8 (Swagger UI, JWT Authorize) | 적용 |
 | 이미지 저장 | S3 비공개 버킷 + presigned URL | 예정 |
 | AI 연동 | AI 서버(FastAPI)를 REST로 호출 | 예정 |
