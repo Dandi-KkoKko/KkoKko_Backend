@@ -1,0 +1,46 @@
+# 개발 서버(EC2)용. 서버의 /opt/onna에 이 파일과 .env를 두고 실행한다. 절차는 docs/DEPLOY.md.
+services:
+  app:
+    image: ghcr.io/dandi-kkokko/kkokko_backend:${IMAGE_TAG:-latest}
+    container_name: onna-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      # 같은 compose 네트워크 안의 mysql 컨테이너로 붙는다. .env의 값보다 우선한다.
+      DB_HOST: mysql
+      DB_PORT: 3306
+      TZ: Asia/Seoul
+      # t3.small(2GB)에 MySQL과 같이 올리므로 힙 상한을 정해 둔다.
+      JAVA_TOOL_OPTIONS: -Xms256m -Xmx768m
+    ports:
+      - "80:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.4
+    container_name: onna-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      TZ: Asia/Seoul
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    # 포트를 열지 않는다. 앱 컨테이너만 내부 네트워크로 접근한다.
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  mysql-data:
