@@ -1,6 +1,8 @@
-# 가까이 (Closer) — Backend
+# 온나 (Onna) — Backend
 
 > 내 주변 지도에 흐릿하게 떠 있는 사진을 따라 걸어가면, 가까이 가야만 사진과 한 줄이 열리고 같은 자리에 내 순간을 남기는 위치 기반 서비스.
+
+이름 "온나"는 대구 사투리 "일로 온나"(이리 와)에서 왔습니다. 가까이 와야 열리는 서비스라는 뜻입니다.
 
 2026 단디톤 팀 꼬꼬(KkoKko)의 백엔드 저장소입니다. 대구·경북의 "속정"(멀리선 무뚝뚝하지만 다가가야 열리는 정)을 서비스 구조로 옮겼습니다. MVP 범위는 영남대 캠퍼스와 학교 앞입니다.
 
@@ -56,7 +58,7 @@ docker compose up -d
 ## 디렉토리
 
 ```
-src/main/java/com/kkokko/closer
+src/main/java/com/kkokko/onna
 ├─ controller   요청·응답만
 ├─ service      판단 로직
 ├─ repository   JpaRepository
