@@ -7,7 +7,7 @@
 ```
 main                 배포·제출 기준. 직접 push 금지
 ├─ develop-seungyoon  BE-B 김승윤 작업 브랜치
-└─ develop-{이름}     BE-A 차광진 작업 브랜치 (영문 이름 표기는 본인이 정한다)
+└─ develop-gwangjin   BE-A 차광진 작업 브랜치
 ```
 
 - 각자 자기 `develop-이름` 브랜치에서만 작업합니다.
@@ -47,6 +47,25 @@ main                 배포·제출 기준. 직접 push 금지
 - PR 템플릿을 채웁니다: 작업 내용, 관련 이슈, 바뀐 API, 테스트 방법.
 - 내가 담당하지 않은 파일을 고쳤다면 그 파일 담당자를 반드시 리뷰어로 넣습니다.
 - API가 바뀌면 Swagger를 갱신하고 팀 단톡에 공지합니다.
+
+## 문서
+
+문서는 코드와 같은 PR에 같이 올립니다. 코드만 바뀌고 문서가 그대로면 리뷰에서 반려합니다.
+
+| 시점 | 해야 할 것 | 문서 |
+|---|---|---|
+| **작업 전** | 되돌리기 비싼 결정(라이브러리, 인프라, 저장 방식, PRD와 다르게 가는 것)은 결정 문서를 먼저 PR로 올려 합의한 뒤 구현 | [docs/adr/](adr/) |
+| 작업 PR과 함께 | 엔티티·테이블·인덱스 변경 | [ERD.md](ERD.md) |
+| | API 추가·변경 | Swagger 설명·예시, PR "바뀐 API" 표, 팀 단톡 공지 |
+| | 구성 요소·핵심 규칙 변경 | [ARCHITECTURE.md](ARCHITECTURE.md) |
+| | 서버·배포 절차 변경 | [DEPLOY.md](DEPLOY.md) |
+| | 환경변수·설정값 추가 | `.env.example`(키 이름만), README |
+| 문제가 생겼을 때 | 해결 전이라도 바로 기록. 터질 것 같은 부분은 "지켜볼 것"에 먼저 | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
+| 마일스톤 PR | README 기술 스택 상태, 아래 "서로 넘겨줄 것" 상태 갱신 | README, 이 문서 |
+| 대회 후 | 회고 | 추가 예정 |
+
+- 문서에도 비밀값(IP, 키, 비밀번호, 계정 정보)을 적지 않습니다.
+- 문서는 사실만 적습니다. 확인하지 못한 것은 "추정", 정하지 않은 것은 "정할 것"으로 표시합니다.
 
 ## 코드 규칙
 
@@ -96,17 +115,17 @@ main                 배포·제출 기준. 직접 push 금지
 
 받는 사람이 이 지점에서 막히므로 가장 먼저 처리합니다. 급하면 메서드 시그니처만 먼저 병합합니다.
 
-| 주는 사람 | 무엇 | 받는 사람·용도 |
-|---|---|---|
-| A | ErrorCode, CustomException, GlobalExceptionHandler, ErrorDto | B: 모든 예외 처리 |
-| B | 엔티티 8개 + Repository | A: 회원가입·업로드 |
-| A | JWT 필터 + 컨트롤러에서 로그인 userId를 꺼내는 방법(`@AuthenticationPrincipal`) | B: 열기·좋아요 |
-| B | data.sql: 태그 사전, zone 좌표 | A: 온보딩·태그 후보 테스트 |
-| B | 개발 서버(EC2) + Swagger URL | 프론트 전체 |
-| B | `GeoUtils.distance()`, `GeoUtils.snap()` | A: 업로드 위치 흐림 |
-| A | `ImageService.urlFor(post, stage)` — 단계별 이미지 URL | B: 지도·열기 응답 |
-| B | `MapService.findZone(lat, lng)` — 가장 가까운 zone | A: 업로드 zone 배정 |
-| A | `AiClient` (RestClient 빈 + 타임아웃) | B: 경로 추천 메서드 추가 |
+| 주는 사람 | 무엇 | 받는 사람·용도 | 상태 |
+|---|---|---|---|
+| A | ErrorCode, CustomException, GlobalExceptionHandler, ErrorDto | B: 모든 예외 처리 | 완료 (#2) |
+| B | 엔티티 8개 + Repository | A: 회원가입·업로드 | PR #6 |
+| A | JWT 필터 + 컨트롤러에서 로그인 userId를 꺼내는 방법(`@AuthenticationPrincipal`) | B: 열기·좋아요 | |
+| B | data.sql: 태그 사전, zone 좌표 | A: 온보딩·태그 후보 테스트 | 태그·좌표 받는 중 |
+| B | 개발 서버(EC2) + Swagger URL | 프론트 전체 | 진행 중 |
+| B | `GeoUtils.distance()`, `GeoUtils.snap()`(→ `LatLng`), `BlurStage` | A: 업로드 위치 흐림, `ImageService.urlFor` | PR #6 |
+| A | `ImageService.urlFor(post, stage)` — 단계별 이미지 URL | B: 지도·열기 응답 | |
+| B | `MapService.findZone(lat, lng)` — 가장 가까운 zone | A: 업로드 zone 배정 | PR #6 |
+| A | `AiClient` (RestClient 빈 + 타임아웃) | B: 경로 추천 메서드 추가 | |
 
 ## 매일 싱크
 

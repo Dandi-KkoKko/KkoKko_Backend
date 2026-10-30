@@ -1,0 +1,44 @@
+# PR마다 테스트를 돌린다. deploy.yml도 이 워크플로를 불러서 배포 전에 같은 테스트를 돌린다.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # 테스트(contextLoads, Repository 테스트)가 실제 MySQL에 붙으므로 서비스 컨테이너로 띄운다.
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: onna
+          MYSQL_USER: onna
+          MYSQL_PASSWORD: onna
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    # CI 전용 일회용 DB라 값이 공개돼도 상관없다. 운영 비밀번호는 서버 .env에만 있다.
+    env:
+      DB_PORT: 3306
+      DB_NAME: onna
+      DB_USERNAME: onna
+      DB_PASSWORD: onna
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v6
+      - run: ./gradlew test

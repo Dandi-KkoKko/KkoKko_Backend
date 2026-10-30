@@ -1,4 +1,4 @@
-package com.kkokko.closer.global.exception;
+package com.kkokko.onna.global.exception;
 
 import lombok.Getter;
 

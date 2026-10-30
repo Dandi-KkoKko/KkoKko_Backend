@@ -1,6 +1,8 @@
-# 가까이 (Closer) — Backend
+# 온나 (Onna) — Backend
 
 > 내 주변 지도에 흐릿하게 떠 있는 사진을 따라 걸어가면, 가까이 가야만 사진과 한 줄이 열리고 같은 자리에 내 순간을 남기는 위치 기반 서비스.
+
+이름 "온나"는 대구 사투리 "일로 온나"(이리 와)에서 왔습니다. 가까이 와야 열리는 서비스라는 뜻입니다.
 
 2026 단디톤 팀 꼬꼬(KkoKko)의 백엔드 저장소입니다. 대구·경북의 "속정"(멀리선 무뚝뚝하지만 다가가야 열리는 정)을 서비스 구조로 옮겼습니다. MVP 범위는 영남대 캠퍼스와 학교 앞입니다.
 
@@ -16,9 +18,10 @@
 | API 문서 | springdoc-openapi (Swagger UI) | 예정 |
 | 이미지 저장 | S3 비공개 버킷 + presigned URL | 예정 |
 | AI 연동 | AI 서버(FastAPI)를 REST로 호출 | 예정 |
-| 배포 | AWS EC2 + Docker Compose + GitHub Actions, Nginx + HTTPS | 예정 |
+| 위치 판정 | 하버사인 거리, 20m 격자 스냅, 거리별 공개 단계(`app.blur.*`) | 적용 |
+| 배포 | AWS EC2(시드니, 탄력적 IP) + Docker Compose + GitHub Actions + GHCR + SSM, Nginx + HTTPS | 구축 중 ([DEPLOY](docs/DEPLOY.md)) |
 
-Spring Boot 버전을 고른 이유는 [ADR 0001](docs/adr/0001-spring-boot-3.5.md)에 있습니다.
+기술을 고른 이유는 [ADR](docs/adr/)에 있습니다: [Spring Boot 버전](docs/adr/0001-spring-boot-3.5.md), [사진 저장(S3)](docs/adr/0002-s3-image-storage.md), [배포](docs/adr/0003-deploy-ec2-docker-ghcr.md).
 
 ## 로컬 실행
 
@@ -55,7 +58,7 @@ docker compose up -d
 ## 디렉토리
 
 ```
-src/main/java/com/kkokko/closer
+src/main/java/com/kkokko/onna
 ├─ controller   요청·응답만
 ├─ service      판단 로직
 ├─ repository   JpaRepository
@@ -82,8 +85,12 @@ src/main/java/com/kkokko/closer
 
 | 문서 | 내용 |
 |---|---|
-| [docs/CONVENTIONS.md](docs/CONVENTIONS.md) | 브랜치·커밋·PR·코드 규칙, 파일 담당 |
-| [docs/adr/](docs/adr/) | 기술 결정 기록 |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 구성도, 서버 판정 규칙(거리 단계·위치 보호·지연 공개·익명) |
+| [docs/CONVENTIONS.md](docs/CONVENTIONS.md) | 브랜치·커밋·PR·문서·코드 규칙, 파일 담당 |
+| [docs/DEPLOY.md](docs/DEPLOY.md) | 개발 서버 구성, 처음 준비, 자동 배포, 되돌리기, 장애 대응 |
+| [docs/ERD.md](docs/ERD.md) | 테이블 8개, 제약·인덱스, 설계 이유, 공용 조회 규칙 |
+| [docs/adr/](docs/adr/) | 기술 결정 기록 (0001 Spring Boot 버전, 0002 S3, 0003 배포), 작성법·템플릿 |
+| [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 개발·테스트·배포 중 생긴 문제와 해결, 지켜볼 위험 요소 |
 
 ## 팀 (Backend)
 
