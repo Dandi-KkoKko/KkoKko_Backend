@@ -7,7 +7,7 @@
 ```
 main                 배포·제출 기준. 직접 push 금지
 ├─ develop-seungyoon  BE-B 김승윤 작업 브랜치
-└─ develop-{이름}     BE-A 차광진 작업 브랜치 (영문 이름 표기는 본인이 정한다)
+└─ develop-gwangjin   BE-A 차광진 작업 브랜치
 ```
 
 - 각자 자기 `develop-이름` 브랜치에서만 작업합니다.
@@ -96,17 +96,17 @@ main                 배포·제출 기준. 직접 push 금지
 
 받는 사람이 이 지점에서 막히므로 가장 먼저 처리합니다. 급하면 메서드 시그니처만 먼저 병합합니다.
 
-| 주는 사람 | 무엇 | 받는 사람·용도 |
-|---|---|---|
-| A | ErrorCode, CustomException, GlobalExceptionHandler, ErrorDto | B: 모든 예외 처리 |
-| B | 엔티티 8개 + Repository | A: 회원가입·업로드 |
-| A | JWT 필터 + 컨트롤러에서 로그인 userId를 꺼내는 방법(`@AuthenticationPrincipal`) | B: 열기·좋아요 |
-| B | data.sql: 태그 사전, zone 좌표 | A: 온보딩·태그 후보 테스트 |
-| B | 개발 서버(EC2) + Swagger URL | 프론트 전체 |
-| B | `GeoUtils.distance()`, `GeoUtils.snap()` | A: 업로드 위치 흐림 |
-| A | `ImageService.urlFor(post, stage)` — 단계별 이미지 URL | B: 지도·열기 응답 |
-| B | `MapService.findZone(lat, lng)` — 가장 가까운 zone | A: 업로드 zone 배정 |
-| A | `AiClient` (RestClient 빈 + 타임아웃) | B: 경로 추천 메서드 추가 |
+| 주는 사람 | 무엇 | 받는 사람·용도 | 상태 |
+|---|---|---|---|
+| A | ErrorCode, CustomException, GlobalExceptionHandler, ErrorDto | B: 모든 예외 처리 | 완료 (#2) |
+| B | 엔티티 8개 + Repository | A: 회원가입·업로드 | PR #6 |
+| A | JWT 필터 + 컨트롤러에서 로그인 userId를 꺼내는 방법(`@AuthenticationPrincipal`) | B: 열기·좋아요 | |
+| B | data.sql: 태그 사전, zone 좌표 | A: 온보딩·태그 후보 테스트 | 태그·좌표 받는 중 |
+| B | 개발 서버(EC2) + Swagger URL | 프론트 전체 | 진행 중 |
+| B | `GeoUtils.distance()`, `GeoUtils.snap()`(→ `LatLng`), `BlurStage` | A: 업로드 위치 흐림, `ImageService.urlFor` | PR #6 |
+| A | `ImageService.urlFor(post, stage)` — 단계별 이미지 URL | B: 지도·열기 응답 | |
+| B | `MapService.findZone(lat, lng)` — 가장 가까운 zone | A: 업로드 zone 배정 | PR #6 |
+| A | `AiClient` (RestClient 빈 + 타임아웃) | B: 경로 추천 메서드 추가 | |
 
 ## 매일 싱크
 

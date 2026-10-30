@@ -16,9 +16,10 @@
 | API 문서 | springdoc-openapi (Swagger UI) | 예정 |
 | 이미지 저장 | S3 비공개 버킷 + presigned URL | 예정 |
 | AI 연동 | AI 서버(FastAPI)를 REST로 호출 | 예정 |
-| 배포 | AWS EC2 + Docker Compose + GitHub Actions, Nginx + HTTPS | 예정 |
+| 위치 판정 | 하버사인 거리, 20m 격자 스냅, 거리별 공개 단계(`app.blur.*`) | 적용 |
+| 배포 | AWS EC2(서울, 탄력적 IP) + Docker Compose + GitHub Actions + GHCR, Nginx + HTTPS | 예정 |
 
-Spring Boot 버전을 고른 이유는 [ADR 0001](docs/adr/0001-spring-boot-3.5.md)에 있습니다.
+기술을 고른 이유는 [ADR](docs/adr/)에 있습니다: [Spring Boot 버전](docs/adr/0001-spring-boot-3.5.md), [사진 저장(S3)](docs/adr/0002-s3-image-storage.md), [배포](docs/adr/0003-deploy-ec2-docker-ghcr.md).
 
 ## 로컬 실행
 
@@ -82,9 +83,10 @@ src/main/java/com/kkokko/closer
 
 | 문서 | 내용 |
 |---|---|
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 구성도, 서버 판정 규칙(거리 단계·위치 보호·지연 공개·익명) |
 | [docs/CONVENTIONS.md](docs/CONVENTIONS.md) | 브랜치·커밋·PR·코드 규칙, 파일 담당 |
 | [docs/ERD.md](docs/ERD.md) | 테이블 8개, 제약·인덱스, 설계 이유, 공용 조회 규칙 |
-| [docs/adr/](docs/adr/) | 기술 결정 기록 |
+| [docs/adr/](docs/adr/) | 기술 결정 기록 (0001 Spring Boot 버전, 0002 S3, 0003 배포) |
 
 ## 팀 (Backend)
 
