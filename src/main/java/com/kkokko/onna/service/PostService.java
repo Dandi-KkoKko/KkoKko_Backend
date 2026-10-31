@@ -1,5 +1,6 @@
 package com.kkokko.onna.service;
 
+import com.kkokko.onna.domain.Tag;
 import com.kkokko.onna.dto.MyPostResDto;
 import com.kkokko.onna.dto.PostCreateReqDto;
 import com.kkokko.onna.dto.PostCreateResDto;
@@ -46,7 +47,7 @@ public class PostService {
 
 	// 실제로는 삭제 안 된 내 기록 전부를 최신순으로, zoneId가 있으면 그 구역만. 지금은 고정 2개.
 	public List<MyPostResDto> getMyPosts(Long userId, Long zoneId) {
-		List<TagResDto> tags = tagRepository.findAll().stream().limit(2).map(TagResDto::from).toList();
+		List<String> tags = tagRepository.findAll().stream().limit(2).map(Tag::getName).toList();
 		LocalDateTime now = LocalDateTime.now();
 		return List.of(
 				new MyPostResDto(2L, 2, "늘 같은 자리에서 인사해 주던 경비 아저씨", DUMMY_IMAGE_URL + "2/1080/1080",

@@ -21,7 +21,9 @@ public class MyPostResDto {
 	private double lat;
 
 	private double lng;
-	private List<TagResDto> tags;
+
+	@Schema(description = "태그 이름", example = "[\"말없이 챙겨준 사람\"]")
+	private List<String> tags;
 
 	@Schema(description = "좋아요 수. 작성자 본인에게만 내려간다")
 	private int likeCount;
