@@ -120,7 +120,7 @@ main                 배포·제출 기준. 직접 push 금지
 | A | ErrorCode, CustomException, GlobalExceptionHandler, ErrorDto | B: 모든 예외 처리 | 완료 (#2) |
 | B | 엔티티 8개 + Repository | A: 회원가입·업로드 | PR #6 |
 | A | JWT 필터 + 컨트롤러에서 로그인 userId를 꺼내는 방법(`@AuthenticationPrincipal`) | B: 열기·좋아요 | |
-| B | data.sql: 태그 사전, zone 좌표 | A: 온보딩·태그 후보 테스트 | 태그·좌표 받는 중 |
+| B | data.sql: 태그 사전, zone 좌표 | A: 온보딩·태그 후보 테스트 | 임시값 반영 (실제 태그·좌표 받는 중) |
 | B | 개발 서버(EC2) + Swagger URL | 프론트 전체 | 진행 중 |
 | B | `GeoUtils.distance()`, `GeoUtils.snap()`(→ `LatLng`), `BlurStage` | A: 업로드 위치 흐림, `ImageService.urlFor` | PR #6 |
 | A | `ImageService.urlFor(post, stage)` — 단계별 이미지 URL | B: 지도·열기 응답 | |
