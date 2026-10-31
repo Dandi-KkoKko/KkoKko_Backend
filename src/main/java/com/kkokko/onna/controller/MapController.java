@@ -40,12 +40,16 @@ public class MapController {
 					List.of("무뚝뚝한 안부"), false, 12));
 
 	@Operation(summary = "지도 구역 조회 (더미)",
-			description = "반경 안 구역별 사진 수와 대표 사진. 사진이 없는 구역도 내려준다. 랜드마크는 대표 사진 최대 2장.")
+			description = """
+					지도 중심(centerLat·centerLng) 반경 안 구역별 사진 수와 대표 사진. 사진이 없는 구역도 내려준다. 랜드마크는 대표 사진 최대 2장.
+					중심을 안 보내면 내 위치(lat·lng)가 중심이다. 흐림 단계는 항상 내 위치 기준 거리로 정한다.""")
 	@GetMapping("/map/zones")
 	public ResponseEntity<List<ZoneResDto>> getZones(
 			@RequestParam double lat,
 			@RequestParam double lng,
 			@RequestParam double accuracy,
+			@RequestParam(required = false) Double centerLat,
+			@RequestParam(required = false) Double centerLng,
 			@RequestParam(defaultValue = "500") int radius) {
 		return ResponseEntity.ok(DUMMY_ZONES);
 	}
