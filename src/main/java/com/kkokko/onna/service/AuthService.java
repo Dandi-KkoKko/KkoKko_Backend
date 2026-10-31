@@ -1,10 +1,13 @@
 package com.kkokko.onna.service;
 
 import com.kkokko.onna.domain.User;
+import com.kkokko.onna.dto.LoginReqDto;
 import com.kkokko.onna.dto.SignupReqDto;
 import com.kkokko.onna.dto.SignupResDto;
+import com.kkokko.onna.dto.TokenResDto;
 import com.kkokko.onna.global.exception.CustomException;
 import com.kkokko.onna.global.exception.ErrorCode;
+import com.kkokko.onna.global.security.JwtProvider;
 import com.kkokko.onna.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +21,7 @@ public class AuthService {
 
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final JwtProvider jwtProvider;
 
 	public SignupResDto signup(SignupReqDto req) {
 		if (userRepository.existsByEmail(req.getEmail())) {
@@ -29,5 +33,20 @@ public class AuthService {
 				.nickname(req.getNickname())
 				.build());
 		return SignupResDto.from(user);
+	}
+
+	// 이메일이 없는 경우와 비밀번호가 틀린 경우를 구분하지 않는다. 가입된 이메일을 알아낼 수 없게 하기 위해서다.
+	public TokenResDto login(LoginReqDto req) {
+		User user = userRepository.findByEmail(req.getEmail())
+				.filter(u -> passwordEncoder.matches(req.getPassword(), u.getPassword()))
+				.orElseThrow(() -> new CustomException(ErrorCode.LOGIN_FAILED));
+		return issueTokens(user);
+	}
+
+	// Refresh는 사용자당 하나만 저장하므로 새로 발급하면 이전 Refresh는 더 쓸 수 없다.
+	private TokenResDto issueTokens(User user) {
+		String refreshToken = jwtProvider.createRefreshToken(user.getId());
+		user.updateRefreshToken(refreshToken);
+		return new TokenResDto(jwtProvider.createAccessToken(user.getId()), refreshToken);
 	}
 }

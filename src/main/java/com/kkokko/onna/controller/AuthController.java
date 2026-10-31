@@ -1,7 +1,9 @@
 package com.kkokko.onna.controller;
 
+import com.kkokko.onna.dto.LoginReqDto;
 import com.kkokko.onna.dto.SignupReqDto;
 import com.kkokko.onna.dto.SignupResDto;
+import com.kkokko.onna.dto.TokenResDto;
 import com.kkokko.onna.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,5 +31,13 @@ public class AuthController {
 	@PostMapping("/signup")
 	public ResponseEntity<SignupResDto> signup(@Valid @RequestBody SignupReqDto req) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(authService.signup(req));
+	}
+
+	@Operation(summary = "로그인", description = """
+			Access(1시간)·Refresh(14일) 토큰을 발급한다. Access는 Authorization: Bearer {token}으로 보낸다.
+			- 401 LOGIN_FAILED: 이메일 또는 비밀번호가 틀림""")
+	@PostMapping("/login")
+	public ResponseEntity<TokenResDto> login(@Valid @RequestBody LoginReqDto req) {
+		return ResponseEntity.ok(authService.login(req));
 	}
 }
