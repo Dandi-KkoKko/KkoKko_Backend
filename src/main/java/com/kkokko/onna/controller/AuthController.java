@@ -1,6 +1,7 @@
 package com.kkokko.onna.controller;
 
 import com.kkokko.onna.dto.LoginReqDto;
+import com.kkokko.onna.dto.RefreshReqDto;
 import com.kkokko.onna.dto.SignupReqDto;
 import com.kkokko.onna.dto.SignupResDto;
 import com.kkokko.onna.dto.TokenResDto;
@@ -39,5 +40,13 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<TokenResDto> login(@Valid @RequestBody LoginReqDto req) {
 		return ResponseEntity.ok(authService.login(req));
+	}
+
+	@Operation(summary = "토큰 재발급", description = """
+			Refresh 토큰으로 Access·Refresh를 둘 다 새로 받는다. 쓴 Refresh는 다시 쓸 수 없다.
+			- 401 INVALID_TOKEN: 만료·위조·이미 사용한 Refresh, 또는 Access 토큰을 넣음""")
+	@PostMapping("/refresh")
+	public ResponseEntity<TokenResDto> refresh(@Valid @RequestBody RefreshReqDto req) {
+		return ResponseEntity.ok(authService.refresh(req));
 	}
 }
