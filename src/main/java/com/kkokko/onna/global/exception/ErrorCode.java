@@ -23,6 +23,9 @@ public enum ErrorCode {
 	POST_NOT_FOUND(HttpStatus.NOT_FOUND, "기록을 찾을 수 없습니다."),
 	FACE_DETECTED(HttpStatus.UNPROCESSABLE_ENTITY, "사진에 얼굴이 있어 올릴 수 없습니다."),
 
+	// tag
+	TAG_NOT_FOUND(HttpStatus.NOT_FOUND, "없는 태그입니다."),
+
 	// open
 	TOO_FAR(HttpStatus.BAD_REQUEST, "사진에 더 가까이 가야 열 수 있습니다."),
 	NOT_OPENED(HttpStatus.FORBIDDEN, "열어 본 사진에만 좋아요를 누를 수 있습니다."),
