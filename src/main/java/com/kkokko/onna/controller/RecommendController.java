@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RecommendController {
 
-	@Operation(summary = "산책 경로 추천 (더미)", description = "아직 안 연 사진 중 취향에 맞는 곳을 이어 걷는 순서.")
+	@Operation(summary = "[더미] 산책 경로 추천", description = "아직 안 연 사진 중 취향에 맞는 곳을 이어 걷는 순서.")
 	@GetMapping("/api/v1/recommendations/route")
 	public ResponseEntity<RouteResDto> getRoute(
 			@AuthenticationPrincipal Long userId,

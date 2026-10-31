@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AchievementController {
 
-	@Operation(summary = "발견 업적 (더미)", description = "연 사진 수, 발견한 구역 수, 처음으로 연 사진 수.")
+	@Operation(summary = "[더미] 발견 업적", description = "연 사진 수, 발견한 구역 수, 처음으로 연 사진 수.")
 	@GetMapping("/api/v1/users/me/achievements")
 	public ResponseEntity<AchievementResDto> getAchievements(@AuthenticationPrincipal Long userId) {
 		// TODO 더미: 구현할 때 post_open 집계로 바꾼다.
