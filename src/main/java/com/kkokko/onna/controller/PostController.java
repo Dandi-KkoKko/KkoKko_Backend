@@ -14,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +39,17 @@ public class PostController {
 	public ResponseEntity<PostCreateResDto> create(@Parameter(hidden = true) @AuthenticationPrincipal Long userId,
 			@Valid @ModelAttribute PostCreateReqDto req) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(postService.create(userId, req));
+	}
+
+	@Operation(summary = "[더미] 내 기록 삭제", description = """
+			지금은 아무것도 지우지 않고 204를 준다.
+			- 404 POST_NOT_FOUND: 없는 기록 (더미: id 404)
+			- 403 NOT_OWNER: 남의 기록 (더미: id 403)""")
+	@DeleteMapping("/{postId}")
+	public ResponseEntity<Void> delete(@Parameter(hidden = true) @AuthenticationPrincipal Long userId,
+			@PathVariable Long postId) {
+		postService.delete(userId, postId);
+		return ResponseEntity.noContent().build();
 	}
 
 	@Operation(summary = "[더미] 해시태그 후보", description = """
