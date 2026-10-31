@@ -121,6 +121,7 @@ main                 배포·제출 기준. 직접 push 금지
 | B | 엔티티 8개 + Repository | A: 회원가입·업로드 | 완료 (#6) |
 | A | JWT 필터 + 컨트롤러에서 로그인 userId를 꺼내는 방법: 파라미터에 `@AuthenticationPrincipal Long userId` | B: 열기·좋아요 | 완료 (Security PR) |
 | B | data.sql: 태그 사전, zone 좌표 | A: 온보딩·태그 후보 테스트 | 임시값 반영 (실제 태그·좌표 받는 중) |
+| B | `QuestionCatalog.get(id)` — 남기기 질문 id·문구 (코드 상수) | A: 업로드 `questionId` 검증, 태그 후보 | 임시값 반영 (실제 질문 받는 중) |
 | B | 개발 서버(EC2) + Swagger URL | 프론트 전체 | 완료 (http://3.25.22.156/swagger-ui/index.html) |
 | B | `GeoUtils.distance()`, `GeoUtils.snap()`(→ `LatLng`), `BlurStage` | A: 업로드 위치 흐림, `ImageService.urlFor` | 완료 (#6) |
 | A | `ImageService.urlFor(post, stage)` — 단계별 이미지 URL | B: 지도·열기 응답 | |
