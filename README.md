@@ -14,8 +14,8 @@
 |---|---|---|
 | 언어·프레임워크 | Java 17, Spring Boot 3.5.16, Gradle 8.14.6 (Groovy) | 적용 |
 | DB | MySQL 8.4, Spring Data JPA | 적용 |
-| 인증 | Spring Security + JWT (Access + Refresh), BCrypt | 예정 |
-| API 문서 | springdoc-openapi (Swagger UI) | 예정 |
+| 인증 | Spring Security + JWT (Access 1시간 + Refresh 14일), BCrypt | 필터 적용, 가입·로그인 API 예정 |
+| API 문서 | springdoc-openapi 2.8 (Swagger UI, JWT Authorize) | 적용 |
 | 이미지 저장 | S3 비공개 버킷 + presigned URL | 예정 |
 | AI 연동 | AI 서버(FastAPI)를 REST로 호출 | 예정 |
 | 위치 판정 | 하버사인 거리, 20m 격자 스냅, 거리별 공개 단계(`app.blur.*`) | 적용 |
@@ -45,6 +45,7 @@ docker compose up -d
 - `.env`는 Docker Compose와 Spring이 같이 읽습니다. Spring은 `application.properties`의 `spring.config.import=optional:file:.env[.properties]`로 읽습니다.
 - `.env`는 커밋하지 않습니다. 새 키가 생기면 `.env.example`에 **키 이름만** 추가합니다.
 - 테스트(`contextLoads`)도 로컬 MySQL에 연결하므로 3번을 먼저 해야 합니다.
+- API 문서: 실행 후 `http://localhost:8080/swagger-ui/index.html`. 로그인 API로 받은 Access 토큰을 Authorize 버튼에 넣으면 인증이 필요한 API도 호출할 수 있습니다.
 
 ## 프로필
 

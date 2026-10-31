@@ -71,7 +71,8 @@ sudo mkdir -p /opt/onna
 `.env`는 **담당자가 직접** 만든다. 키 이름은 저장소 `.env.example`과 같고 값은 문서·채팅에 남기지 않는다.
 
 ```bash
-sudo vi /opt/onna/.env      # DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ROOT_PASSWORD
+sudo vi /opt/onna/.env      # DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ROOT_PASSWORD, JWT_SECRET
+openssl rand -hex 32        # JWT_SECRET 값 만들기 (서버에서 바로 만들어 채팅에 남기지 않는다)
 sudo chmod 600 /opt/onna/.env
 ```
 
