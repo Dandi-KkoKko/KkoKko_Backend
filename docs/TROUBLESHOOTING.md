@@ -17,6 +17,7 @@
 | [T-005](#t-005-보안-그룹-규칙-중복-오류) | 보안 그룹 규칙 중복 오류 | 인프라 | 해결 |
 | [T-006](#t-006-학교-네트워크에서-ssh-접속-불가) | 학교 네트워크에서 SSH 접속 불가 | 인프라 | 해결 (SSM으로 전환) |
 | [T-007](#t-007-github-oidc-연동-불가) | GitHub OIDC 연동 불가 | 인프라 | 해결 (권한 좁힌 액세스 키) |
+| [T-008](#t-008-첫-자동-배포에서-이미지-pull이-unauthorized로-실패) | 첫 자동 배포에서 이미지 pull이 `unauthorized`로 실패 | 배포 | 해결 (패키지 Public) |
 
 ---
 
@@ -115,6 +116,18 @@
 **해결**: 배포 전용 IAM 사용자 `kkokko-github-deploy`의 액세스 키를 GitHub Secrets에 넣는다. 대신 권한을 이 인스턴스에 `AWS-RunShellScript`를 보내고 결과를 조회하는 것으로만 좁혔다(인라인 정책 `onna-deploy-ssm`). 콘솔 정책 편집기에 JSON을 붙여 넣는 방법은 입력이 반영되지 않아서, CloudShell에서 `aws iam put-user-policy`로 붙였다.
 
 **배운 점**: 오래 쓰는 키를 써야 하면 권한을 최소로 좁히고, 끝나면 지울 날짜를 정해 둔다(대회 후 삭제).
+
+## T-008. 첫 자동 배포에서 이미지 pull이 `unauthorized`로 실패
+
+- 날짜: 2026-10-30 · 영역: 배포 · 상태: 해결 (GHCR 패키지 Public)
+
+**문제**: PR #6 병합 후 첫 Deploy에서 test·build는 성공했는데 deploy 단계가 실패했다. 서버 출력은 `Image ghcr.io/dandi-kkokko/kkokko_backend:latest ... error from registry: unauthorized`.
+
+**원인**: GHCR 패키지는 처음 올라갈 때 비공개로 만들어지고, 서버는 GHCR에 로그인하지 않고 받는다. 패키지 설정에서 Public을 고르려 해도 "Setting is disabled by organization administrators"로 막혀 있었는데, 조직 설정 Packages → Package creation에 Private만 체크돼 있었기 때문이다.
+
+**해결**: 조직 설정에서 Public 패키지 생성을 허용한 뒤 패키지 `kkokko_backend`를 Public으로 바꾸고, 실패한 Deploy를 다시 돌렸다. `/v3/api-docs`, `/swagger-ui/index.html`이 200으로 응답했다. 이미지에는 비밀값이 없다(`.env`·`*.pem`은 `.dockerignore`로 빠지고 값은 서버 `.env`에만 있다). 저장소도 Public이라 새로 드러나는 코드는 없다.
+
+**배운 점**: SSM으로 명령을 보내는 경로는 첫 실패에서 정상으로 확인됐다. 실패한 단계의 서버 출력(stderr)을 그대로 남기게 해 둔 덕에 원인을 바로 찾았다.
 
 ---
 
