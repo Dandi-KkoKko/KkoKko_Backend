@@ -40,7 +40,7 @@ flowchart LR
 1. **EC2 IAM 역할**: `kkokko-ec2-ssm-role` (`AmazonSSMManagedInstanceCore`)을 인스턴스에 연결한다. Session Manager와 Run Command가 이 역할로 동작한다.
 2. **배포용 IAM 사용자**: Actions가 쓸 사용자. 권한은 이 인스턴스에 `AWS-RunShellScript` 명령을 보내고 결과를 조회하는 것만 준다.
    - 이 계정은 GitHub OIDC를 쓸 수 없어서 액세스 키를 쓴다 ([T-007](TROUBLESHOOTING.md#t-007-github-oidc-연동-불가)).
-3. **보안 그룹**: 80번만 연다. 22번은 Session Manager 전환 후 닫는다.
+3. **보안 그룹**: 80번만 연다. 22번은 열지 않는다(서버 접속은 Session Manager).
 
 ### GitHub (저장소 Settings)
 
