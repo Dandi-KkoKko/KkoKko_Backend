@@ -57,7 +57,7 @@ flowchart LR
 
 | 포트 | 열린 대상 | 이유 |
 |---|---|---|
-| 22 (SSH) | 관리자 집 IP(/32) → **첫 배포 확인 후 닫음** | Session Manager로 대체 |
+| 22 (SSH) | **닫음** (10/31 삭제) | Session Manager로 대체 |
 | 80 (HTTP) | 전체 | 앱·프론트가 접속 |
 | 443 (HTTPS) | 전체 (도메인 구입 후) | iOS ATS·Android 9+는 기본으로 HTTP를 막으므로 현장 테스트(11/6) 전에 필요 |
 | 3306, 8080 | 열지 않음 | DB와 Spring은 서버 안에서만 접근 |
@@ -71,7 +71,7 @@ flowchart LR
 
 ## 정할 것
 
-- [ ] GHCR 패키지 `kkokko_backend`를 Public으로 (첫 배포 후 Package settings에서. 이미지에 비밀값이 없다)
-- [ ] 첫 배포 확인 후 보안 그룹 22번 삭제
+- [x] GHCR 패키지 `kkokko_backend`를 Public으로 (10/31 완료. 조직 설정에서 Public 허용이 먼저 필요했다 → [T-008](../TROUBLESHOOTING.md#t-008-첫-자동-배포에서-이미지-pull이-unauthorized로-실패))
+- [x] 첫 배포 확인 후 보안 그룹 22번 삭제 (10/31 완료. 인바운드는 80번만 남음)
 - [ ] 도메인 구입 → Nginx + Let's Encrypt로 HTTPS
 - [ ] 대회 후 정리: 인스턴스 종료, 탄력적 IP 해제(보유하는 동안 계속 과금된다), S3 버킷 정리, 배포용 액세스 키 삭제
