@@ -14,7 +14,7 @@
 |---|---|---|
 | 언어·프레임워크 | Java 17, Spring Boot 3.5.16, Gradle 8.14.6 (Groovy) | 적용 |
 | DB | MySQL 8.4, Spring Data JPA | 적용 |
-| 인증 | Spring Security + JWT (Access 1시간 + Refresh 14일), BCrypt | 필터 적용, 가입·로그인 API 예정 |
+| 인증 | Spring Security + JWT (Access 1시간 + Refresh 14일), BCrypt | 적용 (가입·로그인·재발급·내 정보) |
 | API 문서 | springdoc-openapi 2.8 (Swagger UI, JWT Authorize) | 적용 |
 | 이미지 저장 | S3 비공개 버킷 + presigned URL | 예정 |
 | AI 연동 | AI 서버(FastAPI)를 REST로 호출 | 예정 |
@@ -46,6 +46,8 @@ docker compose up -d
 - `.env`는 커밋하지 않습니다. 새 키가 생기면 `.env.example`에 **키 이름만** 추가합니다.
 - 테스트(`contextLoads`)도 로컬 MySQL에 연결하므로 3번을 먼저 해야 합니다.
 - API 문서: 실행 후 `http://localhost:8080/swagger-ui/index.html`. 로그인 API로 받은 Access 토큰을 Authorize 버튼에 넣으면 인증이 필요한 API도 호출할 수 있습니다.
+- 이름 앞에 `[더미]`가 붙은 API(사진 남기기, 해시태그 후보, 내 기록, 삭제, 해시태그 검색)는 프론트가 먼저 붙여 볼 수 있게 고정값을 돌려줍니다. 응답·에러 형식은 실제와 같고, 각 API 설명에 더미에서 에러를 내는 값(예: 삭제 id 404 → `POST_NOT_FOUND`)을 적어 두었습니다.
+- 업로드 최대 크기는 10MB입니다(`spring.servlet.multipart.*`).
 
 ## 프로필
 
