@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 class SecurityConfigTest {
 
 	// 컨트롤러가 없는 경로. 인증을 통과하면 404, 막히면 401이 나온다.
-	private static final String PROTECTED = "/api/v1/users/me";
+	private static final String PROTECTED = "/api/v1/security-test";
 
 	@Autowired
 	private MockMvc mockMvc;
